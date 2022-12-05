@@ -1,6 +1,7 @@
 <script>
   import Header from "./UI/Header.svelte";
   import MeetupGrid from "./Meetups/MeetupGrid.svelte";
+  import TextInput from "./UI/TextInput.svelte";
 
   let title = "";
   let subtitle = "";
@@ -49,35 +50,37 @@
 
 <main>
   <form on:submit|preventDefault={addMeetup}>
-    <div class="form-control">
-      <label for="title">Title</label>
-      <input type="text" id="title" bind:value={title} />
-    </div>
-
-    <div class="form-control">
-      <label for="subtitle">Subtitle</label>
-      <input type="text" id="subtitle" bind:value={subtitle} />
-    </div>
-
-    <div class="form-control">
-      <label for="address">Address</label>
-      <input type="text" id="address" bind:value={address} />
-    </div>
-
-    <div class="form-control">
-      <label for="imageURL">Image URL</label>
-      <input type="text" id="imageURL" bind:value={imageURL} />
-    </div>
-
-    <div class="form-control">
-      <label for="description">Description</label>
-      <textarea rows="3" id="description" bind:value={description} />
-    </div>
-
-    <div class="form-control">
-      <label for="contactEmail">Contact Email</label>
-      <input type="email" id="contactEmail" bind:value={contactEmail} />
-    </div>
+    <TextInput id="title" label="Title" type="text" value={title} on:input={(e) => (title = e.target.value)} />
+    <TextInput
+      id="subtitle"
+      label="Subtitle"
+      type="text"
+      value={subtitle}
+      on:input={(e) => (subtitle = e.target.value)}
+    />
+    <TextInput id="address" label="Address" type="text" value={address} on:input={(e) => (address = e.target.value)} />
+    <TextInput
+      id="imageURL"
+      label="Image URL"
+      type="text"
+      value={imageURL}
+      on:input={(e) => (imageURL = e.target.value)}
+    />
+    <TextInput
+      id="description"
+      label="Description"
+      controlType="textarea"
+      rows="3"
+      value={description}
+      on:input={(e) => (description = e.target.value)}
+    />
+    <TextInput
+      id="contactEmail"
+      label="Contact Email"
+      type="email"
+      value={contactEmail}
+      on:input={(e) => (contactEmail = e.target.value)}
+    />
 
     <button type="submit">Save</button>
   </form>
@@ -88,5 +91,11 @@
 <style>
   main {
     margin-top: 5rem;
+  }
+
+  form {
+    width: 30rem;
+    max-width: 90%;
+    margin: auto;
   }
 </style>
