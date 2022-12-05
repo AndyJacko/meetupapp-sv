@@ -1,4 +1,6 @@
-<header><h1>Meetup App</h1></header>
+<header>
+  <h1>Meetup App</h1>
+</header>
 
 <style>
   header {
