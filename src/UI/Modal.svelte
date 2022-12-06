@@ -35,15 +35,14 @@
 
   .modal {
     position: fixed;
-    top: 10vh;
+    top: 5vh;
     left: 10%;
     width: 80%;
-    max-height: 80vh;
+    max-height: 90vh;
     background: white;
     border-radius: 5px;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    /* overflow: scroll; */
   }
 
   h1 {
