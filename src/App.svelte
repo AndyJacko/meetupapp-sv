@@ -20,6 +20,7 @@
       imageURL: "https://delaygram.andyjacko.com/images/pp/vader-pp.jpg",
       address: "123 A Road, Somewhere, M1 2BC",
       contactEmail: "contact@meetup.com",
+      isFavourite: false,
     },
     {
       id: "m2",
@@ -29,6 +30,7 @@
       imageURL: "https://delaygram.andyjacko.com/images/pp/vader-pp.jpg",
       address: "123 A Road, Somewhere, M1 2BC",
       contactEmail: "contact@meetup.com",
+      isFavourite: false,
     },
   ];
 
@@ -44,6 +46,20 @@
     };
 
     meetups = [newMeetup, ...meetups];
+  };
+
+  const toggleFavourite = (e) => {
+    const id = e.detail;
+    const updatedMeetup = { ...meetups.find((m) => m.id === id) };
+
+    updatedMeetup.isFavourite = !updatedMeetup.isFavourite;
+
+    const meetupIndex = meetups.findIndex((m) => m.id === id);
+    const updatedMeetups = [...meetups];
+
+    updatedMeetups[meetupIndex] = updatedMeetup;
+
+    meetups = updatedMeetups;
   };
 </script>
 
@@ -73,7 +89,7 @@
     <Button type="submit" caption="Save" />
   </form>
 
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:toggleFavourite={toggleFavourite} />
 </main>
 
 <style>
