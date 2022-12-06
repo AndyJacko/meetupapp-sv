@@ -532,7 +532,7 @@ var app = (function () {
     			t = text(/*caption*/ ctx[1]);
     			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*mode*/ ctx[3]) + " svelte-g32zaw"));
     			attr_dev(button, "type", /*type*/ ctx[0]);
-    			add_location(button, file$4, 10, 2, 156);
+    			add_location(button, file$4, 10, 2, 181);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -576,7 +576,7 @@ var app = (function () {
     			t = text(/*caption*/ ctx[1]);
     			attr_dev(a, "href", /*href*/ ctx[2]);
     			attr_dev(a, "class", "svelte-g32zaw");
-    			add_location(a, file$4, 8, 2, 120);
+    			add_location(a, file$4, 8, 2, 145);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
@@ -663,26 +663,14 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Button', slots, []);
-    	let { type } = $$props;
+    	let { type = "button" } = $$props;
     	let { caption } = $$props;
-    	let { href } = $$props;
-    	let { mode } = $$props;
+    	let { href = null } = $$props;
+    	let { mode = null } = $$props;
 
     	$$self.$$.on_mount.push(function () {
-    		if (type === undefined && !('type' in $$props || $$self.$$.bound[$$self.$$.props['type']])) {
-    			console.warn("<Button> was created without expected prop 'type'");
-    		}
-
     		if (caption === undefined && !('caption' in $$props || $$self.$$.bound[$$self.$$.props['caption']])) {
     			console.warn("<Button> was created without expected prop 'caption'");
-    		}
-
-    		if (href === undefined && !('href' in $$props || $$self.$$.bound[$$self.$$.props['href']])) {
-    			console.warn("<Button> was created without expected prop 'href'");
-    		}
-
-    		if (mode === undefined && !('mode' in $$props || $$self.$$.bound[$$self.$$.props['mode']])) {
-    			console.warn("<Button> was created without expected prop 'mode'");
     		}
     	});
 
@@ -801,16 +789,12 @@ var app = (function () {
     		});
 
     	button1 = new Button({
-    			props: { type: "button", caption: "Show Details" },
+    			props: { caption: "Show Details" },
     			$$inline: true
     		});
 
     	button2 = new Button({
-    			props: {
-    				mode: "outline",
-    				type: "button",
-    				caption: "Favorite"
-    			},
+    			props: { mode: "outline", caption: "Favorite" },
     			$$inline: true
     		});
 
@@ -840,27 +824,27 @@ var app = (function () {
     			create_component(button1.$$.fragment);
     			t10 = space();
     			create_component(button2.$$.fragment);
-    			attr_dev(h1, "class", "svelte-8tjse");
+    			attr_dev(h1, "class", "svelte-enhpap");
     			add_location(h1, file$3, 13, 4, 244);
-    			attr_dev(h2, "class", "svelte-8tjse");
+    			attr_dev(h2, "class", "svelte-enhpap");
     			add_location(h2, file$3, 14, 4, 266);
-    			attr_dev(p0, "class", "svelte-8tjse");
+    			attr_dev(p0, "class", "svelte-enhpap");
     			add_location(p0, file$3, 15, 4, 291);
-    			attr_dev(header, "class", "svelte-8tjse");
+    			attr_dev(header, "class", "svelte-enhpap");
     			add_location(header, file$3, 12, 2, 230);
     			if (!src_url_equal(img.src, img_src_value = /*imageURL*/ ctx[2])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*title*/ ctx[0]);
-    			attr_dev(img, "class", "svelte-8tjse");
+    			attr_dev(img, "class", "svelte-enhpap");
     			add_location(img, file$3, 19, 4, 351);
-    			attr_dev(div0, "class", "image svelte-8tjse");
+    			attr_dev(div0, "class", "image svelte-enhpap");
     			add_location(div0, file$3, 18, 2, 326);
-    			attr_dev(p1, "class", "svelte-8tjse");
+    			attr_dev(p1, "class", "svelte-enhpap");
     			add_location(p1, file$3, 23, 4, 428);
-    			attr_dev(div1, "class", "content svelte-8tjse");
+    			attr_dev(div1, "class", "content svelte-enhpap");
     			add_location(div1, file$3, 22, 2, 401);
-    			attr_dev(footer, "class", "svelte-8tjse");
+    			attr_dev(footer, "class", "svelte-enhpap");
     			add_location(footer, file$3, 26, 2, 464);
-    			attr_dev(article, "class", "svelte-8tjse");
+    			attr_dev(article, "class", "svelte-enhpap");
     			add_location(article, file$3, 11, 0, 217);
     		},
     		l: function claim(nodes) {
@@ -1335,7 +1319,7 @@ var app = (function () {
     			attr_dev(input, "id", /*id*/ ctx[1]);
     			input.value = /*value*/ ctx[4];
     			attr_dev(input, "class", "svelte-xzzzlr");
-    			add_location(input, file$1, 14, 4, 311);
+    			add_location(input, file$1, 14, 4, 334);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -1389,7 +1373,7 @@ var app = (function () {
     			attr_dev(textarea, "id", /*id*/ ctx[1]);
     			textarea.value = /*value*/ ctx[4];
     			attr_dev(textarea, "class", "svelte-xzzzlr");
-    			add_location(textarea, file$1, 12, 4, 253);
+    			add_location(textarea, file$1, 12, 4, 276);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, textarea, anchor);
@@ -1453,9 +1437,9 @@ var app = (function () {
     			if_block.c();
     			attr_dev(label_1, "for", /*id*/ ctx[1]);
     			attr_dev(label_1, "class", "svelte-xzzzlr");
-    			add_location(label_1, file$1, 10, 2, 180);
+    			add_location(label_1, file$1, 10, 2, 203);
     			attr_dev(div, "class", "form-control svelte-xzzzlr");
-    			add_location(div, file$1, 9, 0, 150);
+    			add_location(div, file$1, 9, 0, 173);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1508,18 +1492,14 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('TextInput', slots, []);
-    	let { controlType } = $$props;
+    	let { controlType = null } = $$props;
     	let { id } = $$props;
     	let { label } = $$props;
-    	let { rows } = $$props;
+    	let { rows = null } = $$props;
     	let { value } = $$props;
-    	let { type } = $$props;
+    	let { type = "text" } = $$props;
 
     	$$self.$$.on_mount.push(function () {
-    		if (controlType === undefined && !('controlType' in $$props || $$self.$$.bound[$$self.$$.props['controlType']])) {
-    			console.warn("<TextInput> was created without expected prop 'controlType'");
-    		}
-
     		if (id === undefined && !('id' in $$props || $$self.$$.bound[$$self.$$.props['id']])) {
     			console.warn("<TextInput> was created without expected prop 'id'");
     		}
@@ -1528,16 +1508,8 @@ var app = (function () {
     			console.warn("<TextInput> was created without expected prop 'label'");
     		}
 
-    		if (rows === undefined && !('rows' in $$props || $$self.$$.bound[$$self.$$.props['rows']])) {
-    			console.warn("<TextInput> was created without expected prop 'rows'");
-    		}
-
     		if (value === undefined && !('value' in $$props || $$self.$$.bound[$$self.$$.props['value']])) {
     			console.warn("<TextInput> was created without expected prop 'value'");
-    		}
-
-    		if (type === undefined && !('type' in $$props || $$self.$$.bound[$$self.$$.props['type']])) {
-    			console.warn("<TextInput> was created without expected prop 'type'");
     		}
     	});
 
@@ -1691,7 +1663,6 @@ var app = (function () {
     			props: {
     				id: "title",
     				label: "Title",
-    				type: "text",
     				value: /*title*/ ctx[0]
     			},
     			$$inline: true
@@ -1703,7 +1674,6 @@ var app = (function () {
     			props: {
     				id: "subtitle",
     				label: "Subtitle",
-    				type: "text",
     				value: /*subtitle*/ ctx[1]
     			},
     			$$inline: true
@@ -1715,7 +1685,6 @@ var app = (function () {
     			props: {
     				id: "address",
     				label: "Address",
-    				type: "text",
     				value: /*address*/ ctx[2]
     			},
     			$$inline: true
@@ -1727,7 +1696,6 @@ var app = (function () {
     			props: {
     				id: "imageURL",
     				label: "Image URL",
-    				type: "text",
     				value: /*imageURL*/ ctx[3]
     			},
     			$$inline: true
@@ -1752,7 +1720,6 @@ var app = (function () {
     			props: {
     				id: "contactEmail",
     				label: "Contact Email",
-    				type: "email",
     				value: /*contactEmail*/ ctx[5]
     			},
     			$$inline: true

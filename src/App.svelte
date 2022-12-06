@@ -51,22 +51,10 @@
 
 <main>
   <form on:submit|preventDefault={addMeetup}>
-    <TextInput id="title" label="Title" type="text" value={title} on:input={(e) => (title = e.target.value)} />
-    <TextInput
-      id="subtitle"
-      label="Subtitle"
-      type="text"
-      value={subtitle}
-      on:input={(e) => (subtitle = e.target.value)}
-    />
-    <TextInput id="address" label="Address" type="text" value={address} on:input={(e) => (address = e.target.value)} />
-    <TextInput
-      id="imageURL"
-      label="Image URL"
-      type="text"
-      value={imageURL}
-      on:input={(e) => (imageURL = e.target.value)}
-    />
+    <TextInput id="title" label="Title" value={title} on:input={(e) => (title = e.target.value)} />
+    <TextInput id="subtitle" label="Subtitle" value={subtitle} on:input={(e) => (subtitle = e.target.value)} />
+    <TextInput id="address" label="Address" value={address} on:input={(e) => (address = e.target.value)} />
+    <TextInput id="imageURL" label="Image URL" value={imageURL} on:input={(e) => (imageURL = e.target.value)} />
     <TextInput
       id="description"
       label="Description"
@@ -78,7 +66,6 @@
     <TextInput
       id="contactEmail"
       label="Contact Email"
-      type="email"
       value={contactEmail}
       on:input={(e) => (contactEmail = e.target.value)}
     />

@@ -26,8 +26,8 @@
 
   <footer>
     <Button href="mailto:{contactEmail}" caption="Contact" />
-    <Button type="button" caption="Show Details" />
-    <Button mode="outline" type="button" caption="Favorite" />
+    <Button caption="Show Details" />
+    <Button mode="outline" caption="Favorite" />
   </footer>
 </article>
 
@@ -82,5 +82,9 @@
 
   div {
     text-align: right;
+  }
+
+  .content {
+    height: 4rem;
   }
 </style>
