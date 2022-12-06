@@ -136,6 +136,9 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
@@ -207,6 +210,9 @@ var app = (function () {
     }
     function add_render_callback(fn) {
         render_callbacks.push(fn);
+    }
+    function add_flush_callback(fn) {
+        flush_callbacks.push(fn);
     }
     // flush() calls callbacks in this order:
     // 1. All beforeUpdate callbacks, in order: parents before children
@@ -312,6 +318,14 @@ var app = (function () {
         }
         else if (callback) {
             callback();
+        }
+    }
+
+    function bind(component, name, callback) {
+        const index = component.$$.props[name];
+        if (index !== undefined) {
+            component.$$.bound[index] = callback;
+            callback(component.$$.ctx[index]);
         }
     }
     function create_component(block) {
@@ -1910,18 +1924,18 @@ var app = (function () {
     		c: function create() {
     			input = element("input");
     			attr_dev(input, "type", /*type*/ ctx[5]);
-    			attr_dev(input, "id", /*id*/ ctx[1]);
-    			input.value = /*value*/ ctx[4];
+    			attr_dev(input, "id", /*id*/ ctx[2]);
+    			input.value = /*value*/ ctx[0];
     			attr_dev(input, "class", "svelte-1mrfx4j");
     			toggle_class(input, "invalid", !/*valid*/ ctx[6] && /*touched*/ ctx[8]);
-    			add_location(input, file$3, 18, 4, 491);
+    			add_location(input, file$3, 18, 4, 485);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_handler_1*/ ctx[10], false, false, false),
+    					listen_dev(input, "input", /*input_handler*/ ctx[9], false, false, false),
     					listen_dev(input, "blur", /*blur_handler_1*/ ctx[12], false, false, false)
     				];
 
@@ -1933,12 +1947,12 @@ var app = (function () {
     				attr_dev(input, "type", /*type*/ ctx[5]);
     			}
 
-    			if (dirty & /*id*/ 2) {
-    				attr_dev(input, "id", /*id*/ ctx[1]);
+    			if (dirty & /*id*/ 4) {
+    				attr_dev(input, "id", /*id*/ ctx[2]);
     			}
 
-    			if (dirty & /*value*/ 16 && input.value !== /*value*/ ctx[4]) {
-    				prop_dev(input, "value", /*value*/ ctx[4]);
+    			if (dirty & /*value*/ 1 && input.value !== /*value*/ ctx[0]) {
+    				prop_dev(input, "value", /*value*/ ctx[0]);
     			}
 
     			if (dirty & /*valid, touched*/ 320) {
@@ -1972,19 +1986,19 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			textarea = element("textarea");
-    			attr_dev(textarea, "rows", /*rows*/ ctx[3]);
-    			attr_dev(textarea, "id", /*id*/ ctx[1]);
-    			textarea.value = /*value*/ ctx[4];
+    			attr_dev(textarea, "rows", /*rows*/ ctx[4]);
+    			attr_dev(textarea, "id", /*id*/ ctx[2]);
     			attr_dev(textarea, "class", "svelte-1mrfx4j");
     			toggle_class(textarea, "invalid", !/*valid*/ ctx[6] && /*touched*/ ctx[8]);
     			add_location(textarea, file$3, 16, 4, 366);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, textarea, anchor);
+    			set_input_value(textarea, /*value*/ ctx[0]);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(textarea, "input", /*input_handler*/ ctx[9], false, false, false),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[10]),
     					listen_dev(textarea, "blur", /*blur_handler*/ ctx[11], false, false, false)
     				];
 
@@ -1992,16 +2006,16 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*rows*/ 8) {
-    				attr_dev(textarea, "rows", /*rows*/ ctx[3]);
+    			if (dirty & /*rows*/ 16) {
+    				attr_dev(textarea, "rows", /*rows*/ ctx[4]);
     			}
 
-    			if (dirty & /*id*/ 2) {
-    				attr_dev(textarea, "id", /*id*/ ctx[1]);
+    			if (dirty & /*id*/ 4) {
+    				attr_dev(textarea, "id", /*id*/ ctx[2]);
     			}
 
-    			if (dirty & /*value*/ 16) {
-    				prop_dev(textarea, "value", /*value*/ ctx[4]);
+    			if (dirty & /*value*/ 1) {
+    				set_input_value(textarea, /*value*/ ctx[0]);
     			}
 
     			if (dirty & /*valid, touched*/ 320) {
@@ -2036,7 +2050,7 @@ var app = (function () {
     			p = element("p");
     			t = text(/*validityMessage*/ ctx[7]);
     			attr_dev(p, "class", "error-message svelte-1mrfx4j");
-    			add_location(p, file$3, 21, 4, 657);
+    			add_location(p, file$3, 21, 4, 651);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -2069,7 +2083,7 @@ var app = (function () {
     	let t2;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*controlType*/ ctx[0] === "textarea") return create_if_block_1;
+    		if (/*controlType*/ ctx[1] === "textarea") return create_if_block_1;
     		return create_else_block;
     	}
 
@@ -2081,12 +2095,12 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			label_1 = element("label");
-    			t0 = text(/*label*/ ctx[2]);
+    			t0 = text(/*label*/ ctx[3]);
     			t1 = space();
     			if_block0.c();
     			t2 = space();
     			if (if_block1) if_block1.c();
-    			attr_dev(label_1, "for", /*id*/ ctx[1]);
+    			attr_dev(label_1, "for", /*id*/ ctx[2]);
     			attr_dev(label_1, "class", "svelte-1mrfx4j");
     			add_location(label_1, file$3, 14, 2, 293);
     			attr_dev(div, "class", "form-control svelte-1mrfx4j");
@@ -2105,10 +2119,10 @@ var app = (function () {
     			if (if_block1) if_block1.m(div, null);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*label*/ 4) set_data_dev(t0, /*label*/ ctx[2]);
+    			if (dirty & /*label*/ 8) set_data_dev(t0, /*label*/ ctx[3]);
 
-    			if (dirty & /*id*/ 2) {
-    				attr_dev(label_1, "for", /*id*/ ctx[1]);
+    			if (dirty & /*id*/ 4) {
+    				attr_dev(label_1, "for", /*id*/ ctx[2]);
     			}
 
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block0) {
@@ -2202,19 +2216,20 @@ var app = (function () {
     		bubble.call(this, $$self, event);
     	}
 
-    	function input_handler_1(event) {
-    		bubble.call(this, $$self, event);
+    	function textarea_input_handler() {
+    		value = this.value;
+    		$$invalidate(0, value);
     	}
 
     	const blur_handler = () => $$invalidate(8, touched = true);
     	const blur_handler_1 = () => $$invalidate(8, touched = true);
 
     	$$self.$$set = $$props => {
-    		if ('controlType' in $$props) $$invalidate(0, controlType = $$props.controlType);
-    		if ('id' in $$props) $$invalidate(1, id = $$props.id);
-    		if ('label' in $$props) $$invalidate(2, label = $$props.label);
-    		if ('rows' in $$props) $$invalidate(3, rows = $$props.rows);
-    		if ('value' in $$props) $$invalidate(4, value = $$props.value);
+    		if ('controlType' in $$props) $$invalidate(1, controlType = $$props.controlType);
+    		if ('id' in $$props) $$invalidate(2, id = $$props.id);
+    		if ('label' in $$props) $$invalidate(3, label = $$props.label);
+    		if ('rows' in $$props) $$invalidate(4, rows = $$props.rows);
+    		if ('value' in $$props) $$invalidate(0, value = $$props.value);
     		if ('type' in $$props) $$invalidate(5, type = $$props.type);
     		if ('valid' in $$props) $$invalidate(6, valid = $$props.valid);
     		if ('validityMessage' in $$props) $$invalidate(7, validityMessage = $$props.validityMessage);
@@ -2233,11 +2248,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('controlType' in $$props) $$invalidate(0, controlType = $$props.controlType);
-    		if ('id' in $$props) $$invalidate(1, id = $$props.id);
-    		if ('label' in $$props) $$invalidate(2, label = $$props.label);
-    		if ('rows' in $$props) $$invalidate(3, rows = $$props.rows);
-    		if ('value' in $$props) $$invalidate(4, value = $$props.value);
+    		if ('controlType' in $$props) $$invalidate(1, controlType = $$props.controlType);
+    		if ('id' in $$props) $$invalidate(2, id = $$props.id);
+    		if ('label' in $$props) $$invalidate(3, label = $$props.label);
+    		if ('rows' in $$props) $$invalidate(4, rows = $$props.rows);
+    		if ('value' in $$props) $$invalidate(0, value = $$props.value);
     		if ('type' in $$props) $$invalidate(5, type = $$props.type);
     		if ('valid' in $$props) $$invalidate(6, valid = $$props.valid);
     		if ('validityMessage' in $$props) $$invalidate(7, validityMessage = $$props.validityMessage);
@@ -2249,17 +2264,17 @@ var app = (function () {
     	}
 
     	return [
+    		value,
     		controlType,
     		id,
     		label,
     		rows,
-    		value,
     		type,
     		valid,
     		validityMessage,
     		touched,
     		input_handler,
-    		input_handler_1,
+    		textarea_input_handler,
     		blur_handler,
     		blur_handler_1
     	];
@@ -2270,11 +2285,11 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-    			controlType: 0,
-    			id: 1,
-    			label: 2,
-    			rows: 3,
-    			value: 4,
+    			controlType: 1,
+    			id: 2,
+    			label: 3,
+    			rows: 4,
+    			value: 0,
     			type: 5,
     			valid: 6,
     			validityMessage: 7
@@ -2674,6 +2689,7 @@ var app = (function () {
     	let textinput3;
     	let t3;
     	let textinput4;
+    	let updating_value;
     	let t4;
     	let textinput5;
     	let current;
@@ -2732,20 +2748,25 @@ var app = (function () {
 
     	textinput3.$on("input", /*input_handler_3*/ ctx[18]);
 
-    	textinput4 = new TextInput({
-    			props: {
-    				id: "description",
-    				label: "Description",
-    				valid: /*descriptionValid*/ ctx[7],
-    				validityMessage: "Please enter a valid description.",
-    				controlType: "textarea",
-    				rows: "3",
-    				value: /*description*/ ctx[4]
-    			},
-    			$$inline: true
-    		});
+    	function textinput4_value_binding(value) {
+    		/*textinput4_value_binding*/ ctx[19](value);
+    	}
 
-    	textinput4.$on("input", /*input_handler_4*/ ctx[19]);
+    	let textinput4_props = {
+    		id: "description",
+    		label: "Description",
+    		valid: /*descriptionValid*/ ctx[7],
+    		validityMessage: "Please enter a valid description.",
+    		controlType: "textarea",
+    		rows: "3"
+    	};
+
+    	if (/*description*/ ctx[4] !== void 0) {
+    		textinput4_props.value = /*description*/ ctx[4];
+    	}
+
+    	textinput4 = new TextInput({ props: textinput4_props, $$inline: true });
+    	binding_callbacks.push(() => bind(textinput4, 'value', textinput4_value_binding));
 
     	textinput5 = new TextInput({
     			props: {
@@ -2758,7 +2779,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	textinput5.$on("input", /*input_handler_5*/ ctx[20]);
+    	textinput5.$on("input", /*input_handler_4*/ ctx[20]);
 
     	const block = {
     		c: function create() {
@@ -2816,7 +2837,13 @@ var app = (function () {
     			textinput3.$set(textinput3_changes);
     			const textinput4_changes = {};
     			if (dirty & /*descriptionValid*/ 128) textinput4_changes.valid = /*descriptionValid*/ ctx[7];
-    			if (dirty & /*description*/ 16) textinput4_changes.value = /*description*/ ctx[4];
+
+    			if (!updating_value && dirty & /*description*/ 16) {
+    				updating_value = true;
+    				textinput4_changes.value = /*description*/ ctx[4];
+    				add_flush_callback(() => updating_value = false);
+    			}
+
     			textinput4.$set(textinput4_changes);
     			const textinput5_changes = {};
     			if (dirty & /*contactEmailValid*/ 64) textinput5_changes.valid = /*contactEmailValid*/ ctx[6];
@@ -2866,7 +2893,7 @@ var app = (function () {
     	return block;
     }
 
-    // (100:4) <Button type="button" mode="outline" on:click={cancel}>
+    // (99:4) <Button type="button" mode="outline" on:click={cancel}>
     function create_default_slot_1(ctx) {
     	let t;
 
@@ -2886,14 +2913,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(100:4) <Button type=\\\"button\\\" mode=\\\"outline\\\" on:click={cancel}>",
+    		source: "(99:4) <Button type=\\\"button\\\" mode=\\\"outline\\\" on:click={cancel}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (101:4) <Button type="button" disabled={!formIsValid} on:click={submitForm}>
+    // (100:4) <Button type="button" disabled={!formIsValid} on:click={submitForm}>
     function create_default_slot$1(ctx) {
     	let t;
 
@@ -2913,14 +2940,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(101:4) <Button type=\\\"button\\\" disabled={!formIsValid} on:click={submitForm}>",
+    		source: "(100:4) <Button type=\\\"button\\\" disabled={!formIsValid} on:click={submitForm}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (99:2) 
+    // (98:2) 
     function create_footer_slot(ctx) {
     	let div;
     	let button0;
@@ -2959,7 +2986,7 @@ var app = (function () {
     			t = space();
     			create_component(button1.$$.fragment);
     			attr_dev(div, "slot", "footer");
-    			add_location(div, file$1, 98, 2, 2650);
+    			add_location(div, file$1, 97, 2, 2599);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -3007,7 +3034,7 @@ var app = (function () {
     		block,
     		id: create_footer_slot.name,
     		type: "slot",
-    		source: "(99:2) ",
+    		source: "(98:2) ",
     		ctx
     	});
 
@@ -3120,8 +3147,13 @@ var app = (function () {
     	const input_handler_1 = e => $$invalidate(1, subtitle = e.target.value);
     	const input_handler_2 = e => $$invalidate(2, address = e.target.value);
     	const input_handler_3 = e => $$invalidate(3, imageURL = e.target.value);
-    	const input_handler_4 = e => $$invalidate(4, description = e.target.value);
-    	const input_handler_5 = e => $$invalidate(5, contactEmail = e.target.value);
+
+    	function textinput4_value_binding(value) {
+    		description = value;
+    		$$invalidate(4, description);
+    	}
+
+    	const input_handler_4 = e => $$invalidate(5, contactEmail = e.target.value);
 
     	function cancel_handler(event) {
     		bubble.call(this, $$self, event);
@@ -3222,8 +3254,8 @@ var app = (function () {
     		input_handler_1,
     		input_handler_2,
     		input_handler_3,
+    		textinput4_value_binding,
     		input_handler_4,
-    		input_handler_5,
     		cancel_handler
     	];
     }

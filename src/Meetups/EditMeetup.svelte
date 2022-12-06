@@ -83,8 +83,7 @@
       validityMessage="Please enter a valid description."
       controlType="textarea"
       rows="3"
-      value={description}
-      on:input={(e) => (description = e.target.value)}
+      bind:value={description}
     />
     <TextInput
       id="contactEmail"
