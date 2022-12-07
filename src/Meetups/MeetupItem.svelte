@@ -12,7 +12,6 @@
   export let imageURL;
   export let description;
   export let address;
-  export let contactEmail;
   export let isFavourite;
 
   const dispatch = createEventDispatcher();
