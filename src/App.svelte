@@ -8,15 +8,18 @@
   import Button from "./UI/Button.svelte";
 
   let editMode;
+  let editId;
   let page = "overview";
   let pageData = {};
 
-  const addMeetup = (e) => {
+  const saveMeetup = (e) => {
     editMode = null;
+    editId = null;
   };
 
   const cancelEdit = () => {
     editMode = null;
+    editId = null;
   };
 
   const showDetails = (e) => {
@@ -28,6 +31,11 @@
     page = "overview";
     pageData = {};
   };
+
+  const startEdit = (e) => {
+    editMode = "edit";
+    editId = e.detail;
+  };
 </script>
 
 <Header />
@@ -35,13 +43,13 @@
 <main>
   {#if page === "overview"}
     <div class="meetup-controls">
-      <Button on:click={() => (editMode = "add")}>New Meetup</Button>
+      <Button on:click={() => (editMode = "edit")}>New Meetup</Button>
     </div>
 
-    {#if editMode === "add"}
-      <EditMeetup on:addMeetup={addMeetup} on:cancel={cancelEdit} />
+    {#if editMode === "edit"}
+      <EditMeetup id={editId} on:save={saveMeetup} on:cancel={cancelEdit} />
     {/if}
-    <MeetupGrid meetups={$meetups} on:showDetails={showDetails} />
+    <MeetupGrid meetups={$meetups} on:showDetails={showDetails} on:edit={startEdit} />
   {:else}
     <MeetupDetail id={pageData.id} on:close={closeDetails} />
   {/if}

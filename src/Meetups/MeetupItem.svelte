@@ -44,7 +44,8 @@
   </div>
 
   <footer>
-    <Button href="mailto:{contactEmail}">Contact</Button>
+    <!-- <Button href="mailto:{contactEmail}">Contact</Button> -->
+    <Button mode="outline" on:click={() => dispatch("edit", id)}>Edit</Button>
     <Button mode="outline" on:click={() => dispatch("showDetails", id)}>Show Details</Button>
     <Button mode="outline" colour={isFavourite ? null : "success"} on:click={toggleFavourite}>
       {isFavourite ? "Unfavourite" : "Favourite"}

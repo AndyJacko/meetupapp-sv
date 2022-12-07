@@ -8,12 +8,29 @@
   import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
 
+  export let id = null;
+
   let title = "";
   let subtitle = "";
   let address = "";
   let imageURL = "";
   let description = "";
   let contactEmail = "";
+
+  if (id) {
+    const unsubscribe = meetups.subscribe((items) => {
+      const selectedMeetup = items.find((i) => i.id === id);
+
+      title = selectedMeetup.title;
+      subtitle = selectedMeetup.subtitle;
+      address = selectedMeetup.address;
+      imageURL = selectedMeetup.imageURL;
+      description = selectedMeetup.description;
+      contactEmail = selectedMeetup.contactEmail;
+    });
+
+    unsubscribe();
+  }
 
   const dispatch = createEventDispatcher();
 
@@ -37,9 +54,13 @@
       contactEmail,
     };
 
-    meetups.addMeetup(meetupData);
+    if (id) {
+      meetups.updateMeetup(id, meetupData);
+    } else {
+      meetups.addMeetup(meetupData);
+    }
 
-    dispatch("addMeetup");
+    dispatch("save");
   };
 
   const cancel = () => {
