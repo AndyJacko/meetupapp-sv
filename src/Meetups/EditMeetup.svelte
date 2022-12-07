@@ -2,12 +2,11 @@
   import { createEventDispatcher } from "svelte";
 
   import meetups from "./meetups-store.js";
+  import { isEmpty, isEmail } from "../helpers/validation.js";
 
   import TextInput from "../UI/TextInput.svelte";
   import Button from "../UI/Button.svelte";
   import Modal from "../UI/Modal.svelte";
-
-  import { isEmpty, isEmail } from "../helpers/validation.js";
 
   let title = "";
   let subtitle = "";
