@@ -12,12 +12,33 @@
   export let imageURL;
   export let description;
   export let address;
+  export let contactEmail;
   export let isFavourite;
+
+  let isLoading = false;
 
   const dispatch = createEventDispatcher();
 
   const toggleFavourite = () => {
-    meetups.togleFavourite(id);
+    isLoading = true;
+
+    fetch(`https://meetups-sv-default-rtdb.europe-west1.firebasedatabase.app/meetups/${id}.json`, {
+      method: "PATCH",
+      body: JSON.stringify({ isFavourite: !isFavourite }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("An error occurred, please try again!");
+        }
+
+        isLoading = false;
+        meetups.togleFavourite(id);
+      })
+      .catch((err) => {
+        isLoading = false;
+        console.log(err);
+      });
   };
 </script>
 
@@ -45,9 +66,14 @@
   <footer>
     <Button mode="outline" on:click={() => dispatch("edit", id)}>Edit</Button>
     <Button mode="outline" on:click={() => dispatch("showDetails", id)}>Show Details</Button>
-    <Button mode="outline" colour={isFavourite ? null : "success"} on:click={toggleFavourite}>
-      {isFavourite ? "Unfavourite" : "Favourite"}
-    </Button>
+
+    {#if isLoading}
+      <span>Updating...</span>
+    {:else}
+      <Button mode="outline" colour={isFavourite ? null : "success"} on:click={toggleFavourite}>
+        {isFavourite ? "Unfavourite" : "Favourite"}
+      </Button>
+    {/if}
   </footer>
 </article>
 

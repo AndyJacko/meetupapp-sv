@@ -14,9 +14,12 @@
 </script>
 
 <div transition:fade class="modal-backdrop" on:click={closeModal} />
+
 <div transition:fly={{ y: 300 }} class="modal">
   <h1>{title}</h1>
+
   <div class="content"><slot /></div>
+
   <footer>
     <slot name="footer">
       <Button on:click={closeModal}>Close</Button>
